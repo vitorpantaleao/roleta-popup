@@ -1,0 +1,385 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #72258b;
+  color: #fff;
+  font-size: 18px;
+  font-family: "Exo 2", sans-serif;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+a {
+  color: #34495e;
+}
+.roleta_box {
+  display: none;
+  position: fixed;
+  z-index: 99999999;
+  text-align: center;
+  border: none;
+  box-shadow: none !important;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #67546c80;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.roleta_fechar {
+  position: fixed;
+  right: 15.5%;
+  top: 3%;
+  font-size: 50px;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* CSS ROLETA */
+
+.border {
+  position: relative;
+  text-align: center;
+}
+.border.roleta {
+  border: none !important;
+  width: 64%;
+  position: relative;
+  z-index: 9999;
+  top: 10%;
+}
+img.marcador {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 10px;
+  margin: auto;
+  z-index: 999;
+}
+#wrapper {
+  width: auto;
+  position: absolute;
+  transform: scale(1.3);
+  left: -6px;
+  right: 0;
+  top: 130px;
+  z-index: -1;
+}
+#txt {
+  color: #eaeaea;
+}
+#wheel {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  transform: rotate(0deg);
+  margin: auto;
+}
+#inner-wheel {
+  width: 100%;
+  height: 100%;
+  transition: all 6s cubic-bezier(0, 0.99, 0.44, 0.99);
+}
+#wheel .sec {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 130px 75px 0;
+  border-color: #19c transparent;
+  transform-origin: 75px 129px;
+  left: 50px;
+  top: -4px;
+  opacity: 1;
+}
+.percentOff {
+  display: flex;
+  align-items: center;
+}
+.percentOff span {
+  font-size: 12px;
+}
+.percentOff span b {
+  font-size: 20px;
+  line-height: 1;
+}
+#wheel .sec:nth-child(1) {
+  transform: rotate(60deg);
+  border-color: #ff35b2 transparent;
+}
+#wheel .sec:nth-child(2) {
+  transform: rotate(120deg);
+  border-color: #6d2382 transparent;
+}
+#wheel .sec:nth-child(3) {
+  transform: rotate(180deg);
+  border-color: #ff35b2 transparent;
+}
+#wheel .sec:nth-child(4) {
+  transform: rotate(240deg);
+  border-color: #6d2382 transparent;
+}
+#wheel .sec:nth-child(5) {
+  transform: rotate(300deg);
+  border-color: #ff35b2 transparent;
+}
+#wheel .sec:nth-child(6) {
+  transform: rotate(360deg);
+  border-color: #6d2382 transparent;
+}
+.discountPercent {
+  margin-top: -112px;
+  color: rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1000000;
+  display: block;
+  text-align: center;
+  font-size: 38px;
+  margin-left: -24px;
+  text-shadow: rgb(255 255 255 / 10%) 0px -1px 0px, rgb(0 0 0 / 20%) 0px 1px 0px;
+}
+.discountPercent.a {
+  margin-left: -36px;
+}
+.percentOff p,
+span {
+  color: #fff;
+  font-family: cursive, sans-serif;
+  font-weight: bold;
+}
+#spin {
+  width: 95px;
+  height: 95px;
+  position: absolute;
+  top: 42%;
+  left: 48%;
+  margin: -34px 0 0 -34px;
+  border-radius: 50%;
+  z-index: 1000;
+  font-family: "Exo 2", sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: url(/img/centro.gif);
+  /* background-image: url(/img/centro.b8b524df.gif); */
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* cursor: pointer; */
+}
+button#inner-spin {
+    background: rgba(255, 255, 255, 0);
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+#spin:active #inner-spin {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 5px inset;
+}
+#spin:active:after {
+  font-size: 15px;
+}
+.resultado {
+  position: absolute;
+  top: 76%;
+  left: 100%;
+  z-index: 9999;
+}
+#shine {
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.99) 1%,
+    rgba(255, 255, 255, 0.91) 9%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr = '#ffffff', endColorstr='#00ffffff', GradientType=1);
+  opacity: 0.1;
+}
+@keyframes hh {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(7deg);
+  }
+}
+.spin {
+  animation: hh 0.1s;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  border: none;
+  background: #fff0;
+  cursor: pointer;
+  position: absolute;
+  z-index: 9999999999;
+  left: 0px;
+  right: 9px;
+  margin: auto;
+  top: 37.3%;
+}
+
+.bg-modal {
+  background-image: url(./img/bg-modal-troca.png);
+  background-image: url(./img/bg-modal.png);
+  width: 1200px;
+  height: 700px;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  position: relative;
+  transition: background-image 0.2s ease-in-out;
+}
+
+.bg-modalTroca {
+  background-image: url(./img/bg-modal-troca.png);
+  width: 1200px;
+  height: 700px;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  position: relative;
+  transition: background-image 0.2s ease-in-out;
+}
+
+#imagemGif {
+  display: none;
+  margin: 0 auto;
+}
+
+.resultado .percentOff p {
+  font-size: 80px;
+  color: #ffffff;
+}
+
+.resultado .percentOff {
+  background: #ff30b2;
+  width: 200px;
+  border-radius: 10px;
+  justify-content: center;
+}
+
+.resultado .percentOff span {
+  color: #ffffff;
+  font-size: 30px;
+}
+
+.resultado .percentOff span b {
+  font-size: 35px;
+}
+
+#txt {
+  display: none;
+  transition: 0.2s ease-in;
+}
+
+img#roleta_fechar {
+  width: 50px;
+}
+
+@media screen and (max-width: 1366px) {
+  .bg-modal, .bg-modalTroca {
+    height: 650px !important;
+  }
+  .roleta_fechar {
+    right: 8.5% !important;
+    top: 4% !important;
+  }
+}
+@media screen and (max-width: 1080px) {
+  .bg-modal, .bg-modalTroca {
+    height: 550px !important;
+  }
+  .roleta_fechar {
+    right: 10.5% !important;
+    top: 11% !important;
+  }
+  .estruturaRoleta {
+    width: 380px !important;
+  }
+  div#wrapper {
+    transform: scale(1) !important;
+    top: 70px !important;
+  }
+  .border.roleta {
+    width: 72% !important;
+  }
+  .marcador {
+    width: 110px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .bg-modal {
+    background-image: url(./img/bg-modal-mobile.png);
+    transition: background-image 0.2s ease-in-out;
+  }
+  .bg-modalTroca {
+    background-image: url(./img/bg-modal-mobile-troca.png);
+    transition: background-image 0.2s ease-in-out;
+  }
+  .estruturaRoleta {
+    width: 280px !important;
+  }
+
+  .border.roleta {
+    margin: 0 auto;
+    top: 39% !important;
+  }
+  div#wrapper {
+    transform: scale(0.75) !important;
+    top: 19px !important;
+  }
+  #spin {
+    width: 50px !important;
+    height: 50px !important;
+    top: 48% !important;
+    left: 50.8% !important;
+  }
+  .marcador {
+    width: 75px !important;
+  }
+  .roleta_fechar {
+    top: 9% !important;
+    right: 2% !important;
+  }
+  .resultado {
+    left: 41.5% !important;
+    top: 13% !important;
+  }
+
+  .resultado .percentOff p {
+      font-size: 42px !important;
+  }
+
+  .resultado .percentOff span b {
+      font-size: 18px !important;
+  }
+
+  .resultado .percentOff span {
+      font-size: 17px !important;
+  }
+}
+
+/* Fim roleta */
