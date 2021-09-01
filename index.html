@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roleta PopUp</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="roleta_box" id="roleta_box">
+    <div class="content-pop roleta">
+      <div class="bg-modal" id="trocaBgModal">
+        <div class="border roleta">
+          <img class="marcador" src="./img/marcador.png" alt="" />
+          <img class="estruturaRoleta" id="imagemEstatica" src="./img/estrutura-roleta.png" alt="" style="transition: background-image 0.5s ease-in-out;"/>
+          <img class="estruturaRoleta" id="imagemGif" src="./img/estrutura-roleta-troca.png" alt="" style="transition: background-image 0.5s ease-in-out;"/>
+          <div id="wrapper">
+            <div id="wheel">
+              <div id="inner-wheel">
+                <div class="sec">
+                  <div class="discountPercent">
+                    <div class="percentOff">
+                      <p>9</p>
+                      <span><b>%</b> <br />OFF</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sec">
+                  <div class="discountPercent">
+                    <div class="percentOff">
+                      <p>6</p>
+                      <span><b>%</b> <br />OFF</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sec">
+                  <div class="discountPercent">
+                    <div class="percentOff">
+                      <p>8</p>
+                      <span><b>%</b> <br />OFF</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sec">
+                  <div class="discountPercent">
+                    <div class="percentOff">
+                      <p>5</p>
+                      <span><b>%</b> <br />OFF</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sec">
+                  <div class="discountPercent">
+                    <div class="percentOff">
+                      <p>7</p>
+                      <span><b>%</b> <br />OFF</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="sec">
+                  <div class="discountPercent a">
+                    <div class="percentOff">
+                      <p>10</p>
+                      <span><b>%</b> <br />OFF</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="shine"></div>
+            </div>
+          </div>
+
+          <div id="spin">
+            <button id="inner-spin"> </button>
+          </div>
+
+          <div class="resultado" id="txt"></div>
+        </div>
+      </div>
+      <div class="roleta_fechar">
+        <img src="./img/close.png" alt="" id="roleta_fechar">
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT ROLETA -->
+<script>
+  var degree = 14400;
+  var clicks = 0;
+  
+  const tempo_de_delay = 6500; // Tempo para exibição do resultado e troca das imagens após clicar
+  
+  //Limpa o cronômetro de intervalo se o ID for salvo nos atributos
+  function clear_interval(t) {
+    var interval = parseInt(t.data("interval"));
+    if (interval > 0) {
+      clearInterval(interval);
+      t.data("interval", "");
+    }
+  }
+  
+    // Fecha o PopUp
+    $(document).ready(function () {
+      $("#roleta_fechar").click(function () {
+        document.getElementById("roleta_box").style.display = "none";
+      });
+  
+    // Faz girar a roleta e troca a imagem após o termino
+    $("#spin").click(function () {
+      setTimeout(function () {
+        $("#imagemEstatica").hide();
+        $("#imagemGif").show();
+        $("#inner-spin").attr("disabled", "disabled");
+        $("#trocaBgModal").removeClass("bg-modal");
+        $("#trocaBgModal").addClass("bg-modalTroca")
+        $("#txt").css('display', 'block')
+      }, tempo_de_delay);
+      clicks++;
+      var newDegree = degree * clicks;
+      var extraDegree = Math.floor(Math.random() * (360 - 1 + 1)) + 1;
+      totalDegree = newDegree + extraDegree;
+  
+      //Calcule o índice do resultado:
+      var win_num = 6 - Math.floor(((totalDegree % 360) + 30) / 60);
+  
+      $("#wheel .sec").each(function () {
+        var t = $(this);
+  
+        clear_interval(t);
+  
+        //Salva o ID do temporizador no atributo de intervalo de dados:
+        t.data(
+          "interval",
+          setInterval(function () {
+            var aoY = t.offset().top;
+            $("#txt").html(t.html());
+  
+            if (aoY < 23.89) {
+              $("#spin").addClass("spin");
+              setTimeout(function () {
+                $("#spin").removeClass("spin");
+              }, 100);
+            }
+          }, 10)
+        );
+  
+        $("#inner-wheel").css({
+          transform: "rotate(" + totalDegree + "deg)",
+        });
+      });
+  
+      //Para as atualizações e mostre o resultado quando a transição já tiver terminado
+      setTimeout(function () {
+        $("#wheel .sec").each(function () {
+          clear_interval($(this));
+        });
+        $("#txt").html(
+          $("#wheel div.sec:nth-child(" + win_num + ")").html()
+        );
+      }, tempo_de_delay);
+    });
+  
+    // Desabilitar botão após 1 clique
+    function desabilitaBotao(){
+       document.getElementById("BtnCurtir").disabled = true;
+    }
+  
+    $("#BtnCurtir2").on("click", function(){
+      $(this).prop("disabled", true);
+    });
+  
+  });
+  </script>
+
+</body>
+
+</html>
